@@ -1,0 +1,46 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8" >
+		<title>These Days jQuery Slideshow Plugin</title>
+		<link href="css/style.css" rel="stylesheet">
+		<script src="js/modernizr-1.7.min.js"></script>
+	</head>
+	<body>
+		<h1>Demo of These Days jQuery Slideshow Plugin</h1>
+		<p>Yet another jQuery plugin for slideshows. Super lightweight (2.3KB). Uses CSS3 Transitions when available. Offers a gotoSlide(index) method and a beforeTransition(index) callback.</p>
+		<div id="hero">
+			<img src="images/hero1.jpg" alt="" class="current" />
+			<img src="images/hero2.jpg" alt="" />
+			<img src="images/hero3.jpg" alt="" />
+			<img src="images/hero4.jpg" alt="" />
+		</div>
+		<div id="thumbs">
+			<img src="images/thumb1.jpg" alt="" class="current-thumb" />
+			<img src="images/thumb2.jpg" alt="" />
+			<img src="images/thumb3.jpg" alt="" />
+			<img src="images/thumb4.jpg" alt="" />
+		</div>
+		<script src="js/jquery-1.6.min.js"></script>
+		<script src="js/jquery.tdslideshow.1.0.min.js"></script>
+		<script>
+			$(document).ready(function() {
+				// Create the slideshow
+				$("#hero").tdslideshow({
+					timeout: 2000,
+					beforeTransition: function(index) {
+						// Use the beforeTransition callback to highlight the current thumb
+						$("#thumbs img").removeClass("current-thumb").eq(index).addClass("current-thumb");
+					}
+				});
+				// Add a click listener to the thumbs to open the slide directly
+				$("#thumbs img").each(function(index, el) {
+					$(el).click(function() {
+						$("#hero").tdslideshow("gotoSlide", index);
+					});
+				});
+			});
+		</script>
+	</body>
+</html>
+

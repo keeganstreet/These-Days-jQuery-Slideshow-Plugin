@@ -1,0 +1,29 @@
+@mixin transition($property, $duration) {
+	-webkit-transition: $property $duration ease-in-out;
+	-moz-transition: $property $duration ease-in-out;
+	-o-transition: $property $duration ease-in-out;
+	transition: $property $duration ease-in-out;
+}
+
+#hero {
+	width: 640px; height: 480px; position: relative;
+	img { display: block; width: 640px; height: 480px; position: absolute; top: 0; left: 0; z-index: 50; }
+	img.current { z-index: 51; }
+}
+
+.csstransitions {
+	#hero {
+		img { @include transition(opacity, 1s); }
+		&.fastSpeed img { @include transition(opacity, 0.1s); }
+	}
+}
+
+#thumbs {
+	height: 113px; padding: 13px 0;
+	img { height: 113px; width: 150px; float: left; margin: 0 13px 0 0; border-bottom: 10px solid #FFF; cursor: pointer; }
+	img.current-thumb { border-bottom: 10px #bada55 solid; }
+}
+
+body {
+	font-family: sans-serif;
+}
