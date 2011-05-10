@@ -1,6 +1,6 @@
 /**
  * These Days jQuery Slideshow Plugin v1.0
- * @link http://labs.thesedays.com
+ * @link http://playground.thesedays.com/tdslideshow/
  * @author Keegan Street
  */
 (function($) {
