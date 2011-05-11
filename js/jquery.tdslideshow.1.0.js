@@ -49,6 +49,7 @@
 	// Show the next slide
 	doTransition = function($el, nextIndex) {
 		var data = $el.data("tdslideshow"), $next, speed, animationComplete;
+		if (!data) { return; } // Exit because element is removed from DOM
 		clearTimeout(data.timeoutId); // Stop any tdslideshow timers that are currently running on this element
 
 		// Get next item
