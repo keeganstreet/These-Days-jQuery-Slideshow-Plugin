@@ -20,6 +20,7 @@
 			var $el = $(this), data = $el.data("tdslideshow");
 			if (!data) {
 				data = {};
+				data.animating = false;
 				data.options = $.extend(defaults, options);
 				data.$children = $el.children();
 				data.currentIndex = 0;
@@ -50,6 +51,8 @@
 	doTransition = function($el, nextIndex) {
 		var data = $el.data("tdslideshow"), $next, speed, animationComplete;
 		if (!data) { return; } // Exit because element is removed from DOM
+		if (data.animating) { return; } // Do not play two animations at the same time
+		data.animating = true;
 		clearTimeout(data.timeoutId); // Stop any tdslideshow timers that are currently running on this element
 
 		// Get next item
@@ -93,6 +96,7 @@
 			data.timeoutId = setTimeout(function() {
 				doTransition($el);
 			}, data.options.timeout);
+			data.animating = false;
 			$el.data("tdslideshow", data);
 		};
 	};
