@@ -1,11 +1,11 @@
 /**
- * These Days jQuery Slideshow Plugin v1.0
+ * These Days jQuery Slideshow Plugin v1.0.1
  * @link http://playground.thesedays.com/tdslideshow/
  * @author Keegan Street
  */
 (function($) {
 
-	var init, gotoSlide, doTransition, publicMethods, css3 = window.Modernizr && window.Modernizr.csstransitions;
+	var init, gotoSlide, stop, doTransition, publicMethods, css3 = window.Modernizr && window.Modernizr.csstransitions;
 
 	// Initialise plugin
 	init = function(options) {
@@ -21,6 +21,7 @@
 			if (!data) {
 				data = {};
 				data.animating = false;
+				data.stopped = false;
 				data.options = $.extend(defaults, options);
 				data.$children = $el.children();
 				data.currentIndex = 0;
@@ -47,6 +48,17 @@
 		});
 	};
 
+	// Stop the slideshow
+	stop = function() {
+		return this.each(function() {
+			var $el = $(this), data = $el.data("tdslideshow");
+			if (!data || !data.timeoutId) { return; }
+			data.stopped = true;
+			clearTimeout(data.timeoutId);
+			$el.data("tdslideshow", data);
+		});
+	};
+
 	// Show the next slide
 	doTransition = function($el, nextIndex) {
 		var data = $el.data("tdslideshow"), $next, speed, animationComplete;
@@ -57,7 +69,7 @@
 
 		// Get next item
 		if (typeof nextIndex === "number") {
-			if (data.currentIndex === nextIndex) { return; } // Do not allow transitions from a slide to the same slide
+			if (data.currentIndex === nextIndex) { data.animating = false; return; } // Do not allow transitions from a slide to the same slide
 			data.currentIndex = nextIndex;
 			speed = data.options.fastSpeed;
 			$el.addClass("fastSpeed");
@@ -93,9 +105,13 @@
 				data.$current.hide();
 			}
 			data.$current = $next;
-			data.timeoutId = setTimeout(function() {
-				doTransition($el);
-			}, data.options.timeout);
+			if (data.stopped) {
+				delete data.timeoutId;
+			} else {
+				data.timeoutId = setTimeout(function() {
+					doTransition($el);
+				}, data.options.timeout);
+			}
 			data.animating = false;
 			$el.data("tdslideshow", data);
 		};
@@ -103,7 +119,8 @@
 
 	publicMethods = {
 		init: init,
-		gotoSlide: gotoSlide
+		gotoSlide: gotoSlide,
+		stop: stop
 	};
 
 	$.fn.tdslideshow = function(method) {
