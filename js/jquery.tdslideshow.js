@@ -71,7 +71,6 @@
 			return;
 		}
 		data.animating = true;
-		clearTimeout(data.timeoutId); // Stop any tdslideshow timers that are currently running on this element
 
 		// Get next item
 		if (typeof nextIndex === "number") {
@@ -91,6 +90,9 @@
 			data.currentIndex = 0;
 		}
 		$next = data.$children.eq(data.currentIndex);
+
+		// Stop any tdslideshow timers that are currently running on this element
+		clearTimeout(data.timeoutId);
 
 		// Call optional callback before doing the animation
 		if (typeof data.options.beforeTransition === "function") {
