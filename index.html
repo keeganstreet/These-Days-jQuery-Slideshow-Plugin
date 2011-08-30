@@ -1,14 +1,13 @@
 <!doctype html>
 <html>
 	<head>
-		<meta charset="utf-8" >
+		<meta charset="utf-8">
 		<title>These Days jQuery Slideshow Plugin</title>
 		<link href="css/style.css" rel="stylesheet">
-		<script src="js/modernizr-1.7.min.js"></script>
 	</head>
 	<body>
 		<h1>Demo of These Days jQuery Slideshow Plugin</h1>
-		<p>Yet another jQuery plugin for slideshows. Super lightweight (2.3KB). Uses CSS3 Transitions when available. Offers a gotoSlide(index) method and a beforeTransition(index) callback. <a href="https://github.com/keeganstreet/These-Days-jQuery-Slideshow-Plugin">Fork on Github</a>. <a href="http://labs.thesedays.com/2011/05/11/slideshow-plugin-with-css3-transitions">Read about it in the Labs</a>.</p>
+		<p>Yet another jQuery plugin for slideshows. Super lightweight (3.9KB). Uses CSS3 Transitions when available. Offers a gotoSlide(index) method and a beforeTransition(index) callback. <a href="https://github.com/keeganstreet/These-Days-jQuery-Slideshow-Plugin">Fork on Github</a>. <a href="http://labs.thesedays.com/2011/05/11/slideshow-plugin-with-css3-transitions">Read about it in the Labs</a>.</p>
 		<div id="hero">
 			<img src="images/hero1.jpg" alt="" class="current" />
 			<img src="images/hero2.jpg" alt="" />
@@ -26,17 +25,17 @@
 		<script>
 			$(document).ready(function() {
 				// Create the slideshow
-				$("#hero").tdslideshow({
+				$('#hero').tdslideshow({
 					timeout: 2000,
 					beforeTransition: function(index) {
 						// Use the beforeTransition callback to highlight the current thumb
-						$("#thumbs img").removeClass("current-thumb").eq(index).addClass("current-thumb");
+						$('#thumbs img').removeClass('current-thumb').eq(index).addClass('current-thumb');
 					}
 				});
 				// Add a click listener to the thumbs to open the slide directly
-				$("#thumbs img").each(function(index, el) {
+				$('#thumbs img').each(function(index, el) {
 					$(el).click(function() {
-						$("#hero").tdslideshow("gotoSlide", index);
+						$('#hero').tdslideshow('gotoSlide', index);
 					});
 				});
 			});
