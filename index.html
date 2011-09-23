@@ -20,10 +20,12 @@
 			<img src="images/thumb3.jpg" alt="" />
 			<img src="images/thumb4.jpg" alt="" />
 		</div>
+		<p id="stopStart">Stop</p>
 		<script src="js/jquery-1.6.min.js"></script>
 		<script src="js/jquery.tdslideshow.js"></script>
 		<script>
 			$(document).ready(function() {
+				var stopped = false;
 				// Create the slideshow
 				$('#hero').tdslideshow({
 					timeout: 2000,
@@ -37,6 +39,18 @@
 					$(el).click(function() {
 						$('#hero').tdslideshow('gotoSlide', index);
 					});
+				});
+				$('#stopStart').click(function(e) {
+					e.preventDefault();
+					if (stopped) {
+						stopped = false;
+						$('#hero').tdslideshow('start');
+						$(this).text('Stop');
+					} else {
+						stopped = true;
+						$('#hero').tdslideshow('stop');
+						$(this).text('Start');
+					}
 				});
 			});
 		</script>
